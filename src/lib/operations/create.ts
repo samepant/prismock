@@ -3,7 +3,7 @@ import { DMMF } from '@prisma/generator-helper';
 import { ObjectId } from 'bson';
 
 import { Delegate, DelegateProperties, Item } from '../delegate';
-import { camelize, uuid } from '../helpers';
+import { camelize, cuid, uuid } from '../helpers';
 import { Delegates } from '../prismock';
 import { ConnectOrCreate, CreateArgs, FindWhereArgs } from '../types';
 
@@ -33,6 +33,12 @@ const defaultFieldhandlers: [
     (field: DMMF.Field) => (field.default as DMMF.FieldDefault)?.name === 'uuid',
     () => {
       return uuid();
+    },
+  ],
+  [
+    (field: DMMF.Field) => (field.default as DMMF.FieldDefault)?.name === 'cuid',
+    () => {
+      return cuid();
     },
   ],
   [
